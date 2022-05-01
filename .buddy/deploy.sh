@@ -41,6 +41,4 @@ then
     terminus multidev:create -- "$PANTHEON_SITE.$PANTHEON_ENV" --yes
 else
     echo "The multidev $BUDDY_EXECUTION_BRANCH already exists, skipping creating it..."
-    #cd .. && terminus build:env:push -n "$PANTHEON_SITE.$PANTHEON_ENV" --yes
-    cd .. && terminus env:deploy -- "$PANTHEON_SITE.$PANTHEON_ENV"
 fi
