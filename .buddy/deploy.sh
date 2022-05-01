@@ -27,13 +27,20 @@ TERMINUS_DOES_MULTIDEV_EXIST()
     return 1;
 }
 
+if [[ $CIRCLE_BRANCH != "master" ]]
+then
+    echo 'export PANTHEON_ENV=$(echo ${PANTHEON_ENV} | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"' | sed '"'"'s/[^0-9a-z-]//g'"'"' | cut -c -11 | sed '"'"'s/-$//'"'"')' >> $PANTHEON_ENV
+else
+	export PANTHEON_ENV = 'dev';
+fi
+
 # If the mutltidev doesn't exist
 if ! TERMINUS_DOES_MULTIDEV_EXIST $BUDDY_EXECUTION_BRANCH
 then
     # Create it with Terminus
     echo "No multidev for $BUDDY_EXECUTION_BRANCH found, creating one..."
-    terminus multidev:create $PANTHEON_SITE.dev $BUDDY_EXECUTION_BRANCH --clone-content --yes
+    terminus multidev:create $PANTHEON_SITE.dev $PANTHEON_ENV --clone-content --yes
 else
     echo "The multidev $BUDDY_EXECUTION_BRANCH already exists, skipping creating it..."
-    cd .. && terminus build:env:push -n "$PANTHEON_SITE.$BUDDY_EXECUTION_BRANCH" --yes
+    cd .. && terminus build:env:push -n "$PANTHEON_SITE.$PANTHEON_ENV" --yes
 fi
