@@ -38,7 +38,7 @@ if ! TERMINUS_DOES_MULTIDEV_EXIST $BUDDY_EXECUTION_BRANCH
 then
     # Create it with Terminus
     echo "No multidev for $BUDDY_EXECUTION_BRANCH found, creating one..."
-    terminus multidev:create $PANTHEON_SITE.dev $PANTHEON_ENV --clone-content --yes
+    terminus multidev:create $PANTHEON_SITE.dev $PANTHEON_ENV --yes
 else
     echo "The multidev $BUDDY_EXECUTION_BRANCH already exists, skipping creating it..."
     #cd .. && terminus build:env:push -n "$PANTHEON_SITE.$PANTHEON_ENV" --yes
