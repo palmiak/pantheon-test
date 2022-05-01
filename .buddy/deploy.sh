@@ -1,7 +1,6 @@
 #!/bin/bash
 
 # Store the mr- environment name
-export PANTHEON_ENV=$BUDDY_EXECUTION_BRANCH
 export PANTHEON_SITE=${PANTHEON_SITE}
 
 
@@ -29,9 +28,9 @@ TERMINUS_DOES_MULTIDEV_EXIST()
 
 if [[ $BUDDY_EXECUTION_BRANCH != ${MAIN_BRANCH} ]]
 then
-    echo 'export PANTHEON_ENV=$(echo ${PANTHEON_ENV} | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"' | sed '"'"'s/[^0-9a-z-]//g'"'"' | cut -c -11 | sed '"'"'s/-$//'"'"')' >> $PANTHEON_ENV
+    PANTHEON_ENV=$(echo ${PANTHEON_ENV} | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"' | sed '"'"'s/[^0-9a-z-]//g'"'"' | cut -c -11 | sed '"'"'s/-$//'"'"')
 else
-	export PANTHEON_ENV = 'dev';
+	PANTHEON_ENV='dev';
 fi
 
 # If the mutltidev doesn't exist
