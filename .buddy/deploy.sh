@@ -27,7 +27,7 @@ TERMINUS_DOES_MULTIDEV_EXIST()
     return 1;
 }
 
-if [[ $CIRCLE_BRANCH != "master" ]]
+if [[ $BUDDY_EXECUTION_BRANCH != ${MAIN_BRANCH} ]]
 then
     echo 'export PANTHEON_ENV=$(echo ${PANTHEON_ENV} | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"' | sed '"'"'s/[^0-9a-z-]//g'"'"' | cut -c -11 | sed '"'"'s/-$//'"'"')' >> $PANTHEON_ENV
 else
