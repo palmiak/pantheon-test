@@ -28,9 +28,9 @@ TERMINUS_DOES_MULTIDEV_EXIST()
 
 if [[ $BUDDY_EXECUTION_BRANCH != ${MAIN_BRANCH} ]]
 then
-    PANTHEON_ENV=$(echo ${PANTHEON_ENV} | tr '"'"'[:upper:]'"'"' '"'"'[:lower:]'"'"' | sed '"'"'s/[^0-9a-z-]//g'"'"' | cut -c -11 | sed '"'"'s/-$//'"'"')
+    PANTHEON_ENV=${PANTHEON_ENV}
 else
-	PANTHEON_ENV='dev';
+	PANTHEON_ENV='dev'
 fi
 
 # If the mutltidev doesn't exist
@@ -38,7 +38,7 @@ if ! TERMINUS_DOES_MULTIDEV_EXIST $BUDDY_EXECUTION_BRANCH
 then
     # Create it with Terminus
     echo "No multidev for $BUDDY_EXECUTION_BRANCH found, creating one..."
-    terminus multidev:create $PANTHEON_SITE.dev $PANTHEON_ENV --yes
+    terminus multidev:create -- "$PANTHEON_SITE.$PANTHEON_ENV" --yes
 else
     echo "The multidev $BUDDY_EXECUTION_BRANCH already exists, skipping creating it..."
     #cd .. && terminus build:env:push -n "$PANTHEON_SITE.$PANTHEON_ENV" --yes
